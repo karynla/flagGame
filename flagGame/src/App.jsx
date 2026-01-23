@@ -1,9 +1,9 @@
-import Teste from "./Teste";
+import Game from "./Game";
 
 function App() {
   return (
     <>
-      <Teste />
+      <Game />
     </>
   );
 }
