@@ -60,10 +60,10 @@ function Game() {
   const handleOptionClick = (selectedFlag) => {
     setAnswered(true);
     if (selectedFlag === correctFlag) {
-      setMsg("Correto!");
+      setMsg("Acertou!");
       setCorrectCount(correctCount + 1);
     } else {
-      setMsg(`Errado!`);
+      setMsg("Errou!");
       setIncorrectCount(incorrectCount + 1);
     }
 
@@ -79,19 +79,19 @@ function Game() {
       <h2>Que bandeira é essa?</h2>
       {/* placar do jogo */}
       <div className="score-container">
-        <p className="score-correct">Acertos: {correctCount}</p>
+        <p className="score correct">Acertos: {correctCount}</p>
         <p
           className={
-            msg == "Acertou"
+            msg == "Acertou!"
               ? "score correct"
-              : msg == "Errou"
+              : msg == "Errou!"
                 ? "score wrong"
                 : ""
           }
         >
           {msg}
         </p>
-        <p className="score-wrong">Erros: {incorrectCount}</p>
+        <p className="score wrong">Erros: {incorrectCount}</p>
       </div>
       {/* imagem da bandeira */}
       <div className="flag-container">

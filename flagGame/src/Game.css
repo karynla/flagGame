@@ -15,20 +15,23 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+        
 }
 
 .score {
     border-radius: 3px;
     padding: 0 8px;
-    color: white;
+    color: #cce6ff;
+
+    
 }
 
 .correct{
-    background-color: green;
+    background-color: rgba(0, 128, 0, 0.62);
 }
 
 .wrong{
-    background-color: red;
+    background-color: rgba(160, 15, 15, 0.609);
 }
 
 .options-container{
