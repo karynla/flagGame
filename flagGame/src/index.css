@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+font-family: "Inconsolata", monospace;
+    color: #d5d8dd;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: 	#13303a
+}

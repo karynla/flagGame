@@ -1,11 +1,8 @@
 import "./Flag.css";
-
-function Flag(flagUrl) {
+function Flag({ flagUrl }) {
   return (
     <div>
-      {flagUrl && (
-        <img src={flagUrl} alt="ImagemBandeira" className="bandeira" />
-      )}
+      {flagUrl && <img src={flagUrl} alt="Bandeira" className="flag" />}
     </div>
   );
 }

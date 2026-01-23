@@ -9,7 +9,7 @@ function Game() {
   const [flagUrl, setFlagUrl] = useState("");
   const [msg, setMsg] = useState("");
   const [correctCount, setCorrectCount] = useState(0);
-  const [wrongCount, setWrongCount] = useState(0);
+  const [incorrectCount, setIncorrectCount] = useState(0);
   const [answered, setAnswered] = useState(false);
 
   useEffect(() => {
@@ -39,33 +39,32 @@ function Game() {
       // pega o codigo da bandeira correspondente ao indice aleatorio
       const randomCode = flagCodes[randomIndex];
       // se o codigo ainda nao estiver no array selectedCodes, adiciona
-      if (!selectedCodes.includes(randomCode)) {
-        selectedCodes.push(randomCode);
-      }
-
-      console.log(selectedCodes);
-      // Gera indice aleatorio, 0, 1 ou 2 para escolher a resposta correta
-      const correctIndex = Math.floor(Math.random() * selectedCodes.length);
-      const correctCode = selectedCodes[correctIndex];
-      // Define a bandeira correta usando o state
-      setFlagUrl("https://flagcdn.com/256x192/'+correctCode+'.png");
-      // Define a URL da imagem da bandeira correta
-      setOptions(selectedCodes.map((code) => flags[code]));
-      // Limpa a mensagem
-      setMsg("");
-      // Reseta o estado de respondido
-      setAnswered(false);
+      if (!selectedCodes.includes(randomCode)) selectedCodes.push(randomCode);
     }
+
+    console.log(selectedCodes);
+    // Gera indice aleatorio, 0, 1 ou 2 para escolher a resposta correta
+    const correctIndex = Math.floor(Math.random() * selectedCodes.length);
+    const correctCode = selectedCodes[correctIndex];
+    // Define a bandeira correta usando o state
+    setCorrectFlag(flags[correctCode]);
+    setFlagUrl(`https://flagcdn.com/256x192/${correctCode}.png`);
+    // Define a URL da imagem da bandeira correta
+    setOptions(selectedCodes.map((code) => flags[code]));
+    // Limpa a mensagem
+    setMsg("");
+    // Reseta o estado de respondido
+    setAnswered(false);
   };
 
-  const handleOptionClick = (selectedCodes) => {
+  const handleOptionClick = (selectedFlag) => {
     setAnswered(true);
-    if (selectedCodes === correctFlag) {
+    if (selectedFlag === correctFlag) {
       setMsg("Correto!");
       setCorrectCount(correctCount + 1);
     } else {
       setMsg(`Errado!`);
-      setWrongCount(wrongCount + 1);
+      setIncorrectCount(incorrectCount + 1);
     }
 
     setTimeout(() => {
@@ -74,8 +73,49 @@ function Game() {
   };
 
   return (
-    <div>
-      <Flag />
+    <div className="game-container">
+      {/* cabeçalho do jogo */}
+      <h1>Jogo das Bandeiras</h1>
+      <h2>Que bandeira é essa?</h2>
+      {/* placar do jogo */}
+      <div className="score-container">
+        <p className="score-correct">Acertos: {correctCount}</p>
+        <p
+          className={
+            msg == "Acertou"
+              ? "score correct"
+              : msg == "Errou"
+                ? "score wrong"
+                : ""
+          }
+        >
+          {msg}
+        </p>
+        <p className="score-wrong">Erros: {incorrectCount}</p>
+      </div>
+      {/* imagem da bandeira */}
+      <div className="flag-container">
+        {/* operador ternario
+        Se flagUrl existe (tem valor): renderiza o componente <Flag> passando flagUrl como prop */}
+        {flagUrl ? <Flag flagUrl={flagUrl} /> : "Carregando..."}
+      </div>
+      {/* opcoes de resposta */}
+      <div className="options-container">
+        {options.map((flag, index) => (
+          <button
+            onClick={() => handleOptionClick(flag)}
+            className={
+              answered && flag === correctFlag
+                ? "option-button correct-option"
+                : "option-button"
+            }
+            key={index}
+            disabled={answered}
+          >
+            {index + 1}) {flag}
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
